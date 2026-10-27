@@ -31,18 +31,6 @@ ACR
 ACA
 
 
-GET /jobs/
-POST /jobs
-PUT /jobs/{id}
-DELETE /jobs/{id}
-GET /jobs/recommendations
-
-GET /profiles/
-POST /profiles
-PUT /profiles/{id}
-DELETE /profiles/{id}
-GET /profiles/recommendations
-
 ## Responsible AI Transparency FAQ
 Please refer to [Transparency FAQ](./docs/TRANSPARENCY_FAQ.md) for responsible AI transparency details of this solution accelerator.
 
