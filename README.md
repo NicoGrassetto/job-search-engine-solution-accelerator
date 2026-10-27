@@ -8,7 +8,11 @@
 ### Solution architecture
 
 ## Get Started
-## Business use case
+<h2>
+  <img src=".github/assets/business-scenario.png" alt="" width="28" height="28" align="left">
+  Business scenario
+</h2>
+
 <h2>
   <img src=".github/assets/supporting-documentation.png" alt="" width="28" height="28" align="left">
   Supporting documentation
@@ -39,6 +43,9 @@ POST /profiles
 PUT /profiles/{id}
 DELETE /profiles/{id}
 GET /profiles/recommendations
+
+## Responsible AI Transparency FAQ
+Please refer to [Transparency FAQ](./docs/TRANSPARENCY_FAQ.md) for responsible AI transparency details of this solution accelerator.
 
 ## Disclaimers
 
