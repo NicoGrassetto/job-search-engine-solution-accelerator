@@ -25,15 +25,11 @@
 
 Notes to myself:
 
-Azure Search
+
 Azure API Management
 Azure PostgreSQL
-Azure App Insights
-Azure Blob Storage
-Azure Content Understanding
 Azure Event Grid/Service Bus
-ACR
-ACA
+
 
 
 ## Responsible AI Transparency FAQ
