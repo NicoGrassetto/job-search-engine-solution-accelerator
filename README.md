@@ -9,7 +9,10 @@
 
 ## Get Started
 ## Business use case
-## Supporting documentation
+<h2>
+  <img src=".github/assets/supporting-documentation.png" alt="" width="28" height="28" align="left">
+  Supporting documentation
+</h2>
 
 
 Notes to myself:
