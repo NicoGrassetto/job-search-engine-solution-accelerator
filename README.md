@@ -8,6 +8,11 @@
 ### Solution architecture
 
 <h2>
+  <img src=".github/assets/get-started.png" alt="" width="28" height="28" align="left">
+  Get started
+</h2>
+
+<h2>
   <img src=".github/assets/business-scenario.png" alt="" width="28" height="28" align="left">
   Business scenario
 </h2>
