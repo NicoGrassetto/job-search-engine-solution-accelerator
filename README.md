@@ -1,6 +1,6 @@
 # Job Search Engine Solution Accelerator
 
-## Solution overview
+## <img src=".github/assets/solution-overview.png" alt="" width="32" height="32" align="center"> Solution Overview
 ### Solution architecture
 
 ## Get Started
