@@ -1,8 +1,8 @@
 # Job Search Engine Solution Accelerator
 
-<h2 align="center">
-  <img src=".github/assets/solution-overview.png" alt="" width="32" height="32" align="middle">
-  Solution Overview
+<h2>
+  <img src=".github/assets/solution-overview.png" alt="" width="28" height="28" align="left">
+  &nbsp;Solution Overview
 </h2>
 
 ### Solution architecture
