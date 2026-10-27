@@ -8,6 +8,17 @@
 ### Solution architecture
 
 ## Get Started
+
+Install the API dependencies and start the development server:
+
+```bash
+python -m pip install -r requirements.txt
+fastapi dev src/app.py
+```
+
+Interactive API documentation is available at http://127.0.0.1:8000/docs.
+The jobs and profiles routes are scaffolds and return `501 Not Implemented` until their business logic is implemented.
+
 <h2>
   <img src=".github/assets/business-scenario.png" alt="" width="28" height="28" align="left">
   Business scenario
