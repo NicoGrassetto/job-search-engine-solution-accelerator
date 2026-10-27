@@ -23,14 +23,6 @@
 </h2>
 
 
-Notes to myself:
-
-
-Azure API Management
-Azure PostgreSQL
-Azure Event Grid/Service Bus
-
-
 
 ## Responsible AI Transparency FAQ
 Please refer to [Transparency FAQ](./docs/TRANSPARENCY_FAQ.md) for responsible AI transparency details of this solution accelerator.
