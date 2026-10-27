@@ -2,7 +2,7 @@
 
 <h2>
   <img src=".github/assets/solution-overview.png" alt="" width="28" height="28" align="left">
-  &nbsp;Solution Overview
+  Solution Overview
 </h2>
 
 ### Solution architecture
