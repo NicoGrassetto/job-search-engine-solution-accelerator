@@ -58,6 +58,37 @@ param searchPublicNetworkAccess string = 'Enabled'
 @description('Tags applied to deployed resources.')
 param tags object = {}
 
+@description('Globally unique container registry name: 5-50 alphanumeric characters.')
+@minLength(5)
+@maxLength(50)
+param containerRegistryName string = 'acr${uniqueString(resourceGroup().id)}'
+
+@description('Container registry pricing tier. Private endpoints require Premium.')
+@allowed([
+  'Basic'
+  'Standard'
+  'Premium'
+])
+param containerRegistrySku string = 'Standard'
+
+@description('Container registry public endpoint access. Disabled requires Premium and separately provisioned private networking for image access.')
+@allowed([
+  'Enabled'
+  'Disabled'
+])
+param containerRegistryPublicNetworkAccess string = 'Enabled'
+
+module containerRegistry 'modules/container-registry.bicep' = {
+  name: 'container-registry'
+  params: {
+    name: containerRegistryName
+    location: location
+    sku: containerRegistrySku
+    publicNetworkAccess: containerRegistryPublicNetworkAccess
+    tags: tags
+  }
+}
+
 module search 'modules/search.bicep' = {
   name: 'search'
   params: {
@@ -77,3 +108,7 @@ output searchServiceId string = search.outputs.resourceId
 output searchServiceName string = search.outputs.serviceName
 output searchEndpoint string = search.outputs.endpoint
 output searchPrincipalId string = search.outputs.principalId
+
+output containerRegistryId string = containerRegistry.outputs.resourceId
+output containerRegistryName string = containerRegistry.outputs.registryName
+output containerRegistryLoginServer string = containerRegistry.outputs.loginServer

@@ -13,6 +13,53 @@
 </h2>
 
 
+### Azure Container Registry infrastructure
+
+The registry defaults to the **Standard** tier with public network access enabled.
+The admin account and anonymous pulls are disabled; use Microsoft Entra ID
+authentication, including managed identities for applications, rather than shared
+admin credentials.
+
+Authorization uses registry-wide RBAC (`LegacyRegistryPermissions`), not
+repository-level ABAC. ARM-audience authentication tokens remain accepted for
+compatibility with Azure tooling, and image export is enabled. Trusted Azure
+services and ACR Tasks cannot bypass network restrictions. There is no IP
+allowlist; authenticated clients can reach the public endpoint from any IP.
+
+The registry uses Microsoft-managed encryption keys and has no managed identity of
+its own. Dedicated data endpoints, automatic untagged-manifest retention,
+quarantine, and legacy Docker Content Trust policies are not enabled. The template
+omits the legacy `zoneRedundancy` setting: Azure provides automatic zone redundancy
+for all tiers in [supported regions](https://learn.microsoft.com/azure/container-registry/zone-redundancy).
+No geo-replicas, diagnostic settings, webhooks, build Tasks, repository tokens, or
+artifact-cache rules are provisioned.
+
+The main template accepts `containerRegistryName`, `containerRegistrySku`
+(`Basic`, `Standard`, or `Premium`), and `containerRegistryPublicNetworkAccess`
+(`Enabled` or `Disabled`). The registry also uses the shared `location` and `tags`
+parameters. Names must be globally unique and contain 5-50 alphanumeric characters;
+if omitted, a stable name is derived from the resource group ID.
+
+For example, to deploy both services with an explicitly named registry:
+
+```bash
+az deployment group create \
+  --resource-group <resource-group-name> \
+  --template-file infra/main.bicep \
+  --parameters containerRegistryName=<globally-unique-registry-name>
+```
+
+Outputs expose `containerRegistryId`, `containerRegistryName`, and
+`containerRegistryLoginServer`. Use the login server hostname when tagging images.
+Assign **AcrPull** to application managed identities and **AcrPush** to image
+publishers, scoped to the registry. No role assignments, container images, or
+Container Apps integrations are created by these templates.
+
+Setting `containerRegistryPublicNetworkAccess=Disabled` blocks public image access.
+Private image access requires the **Premium** tier plus a separately provisioned
+private endpoint and DNS; this template does not provision private networking.
+To deploy only the registry without the billable Search service, deploy
+`infra/modules/container-registry.bicep` directly with its required `name` parameter.
 
 <h2>
   <img src=".github/assets/business-scenario.png" alt="" width="28" height="28" align="left">
