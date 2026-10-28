@@ -12,6 +12,59 @@
   Get started
 </h2>
 
+### Azure AI Search infrastructure
+
+`infra/main.bicep` deploys the Azure AI Search service defined in
+`infra/modules/search.bicep` into an existing resource group. Other infrastructure
+modules remain scaffolds.
+
+The default configuration uses the **Standard S2** tier with three replicas and
+three partitions (nine billable search units), a system-assigned managed identity,
+and Microsoft Entra ID authentication only (API keys are disabled). Public network
+access is enabled, and the semantic ranker uses the usage-based standard plan.
+Deployment creates a billable service.
+
+With the Azure CLI and Bicep installed, compile the templates without deploying:
+
+```bash
+az bicep build --file infra/main.bicep --stdout
+```
+
+To deploy when ready, select the intended subscription and use an existing resource
+group:
+
+```bash
+az deployment group create \
+  --resource-group <resource-group-name> \
+  --template-file infra/main.bicep \
+  --parameters searchServiceName=<globally-unique-search-name>
+```
+
+The service name must contain 2-60 lowercase letters, digits, or single hyphens,
+and must start and end with a letter or digit. If omitted, the template derives a
+stable name from the resource group ID. Optional parameters include `location`,
+`searchSku`, `searchReplicaCount`, `searchPartitionCount`, `searchHostingMode`,
+`searchSemanticSearch`, `searchPublicNetworkAccess`, and `tags`. Capacity
+combinations must be supported by the selected tier and service; Azure validates
+them during deployment. New Basic services support up to three partitions and three
+replicas, while older services can be limited to one partition. `HighDensity`
+hosting is available only for Standard S3 with at most three partitions. A single
+replica does not provide a production availability SLA. Semantic ranking requires a
+supported region and tier; choose
+`free` for the limited free quota, `standard` for usage-based billing, or
+`disabled` to turn it off.
+
+Deployment outputs expose the service ID, name, endpoint, and managed identity
+principal ID. The service identity is for outbound access to other Azure resources;
+it does not authorize applications to query the service. Assign callers
+**Search Index Data Reader** for queries, **Search Index Data Contributor** for
+document writes, and **Search Service Contributor** when index management is
+required, scoped to the search service. No role assignments, indexes, or data
+ingestion are created by these templates.
+
+Setting `searchPublicNetworkAccess=Disabled` requires a private endpoint and DNS
+configured separately; this template does not provision private networking.
+
 <h2>
   <img src=".github/assets/business-scenario.png" alt="" width="28" height="28" align="left">
   Business scenario
